@@ -19,5 +19,6 @@ RUN pip install -r requirements.txt
 # Expõe a porta padrão
 EXPOSE 8188
 
-# Inicia o ComfyUI
+WORKDIR /app/ComfyUI
+
 CMD ["python", "main.py", "--listen", "0.0.0.0"]
