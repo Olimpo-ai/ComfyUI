@@ -1,24 +1,27 @@
 FROM python:3.10
 
+# Diretório de trabalho
 WORKDIR /app
 
-# Instala dependências do sistema
+# Dependências do sistema
 RUN apt-get update && apt-get install -y \
     git \
     ffmpeg \
     libgl1 \
     libglib2.0-0
 
-# Clona o repositório (ou copie os arquivos já presentes no fork)
+# Copia os arquivos
 COPY . .
+
+# Cria diretórios necessários
+RUN mkdir -p input output
 
 # Instala dependências Python
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expõe a porta padrão
+# Expor porta
 EXPOSE 8188
 
-WORKDIR /app/ComfyUI
-
-CMD ["python", "main.py", "--listen", "0.0.0.0"]
+# Comando de inicialização com log
+CMD ["bash", "-c", "ls -la && echo 'Iniciando ComfyUI...' && python main.py --listen 0.0.0.0"]
